@@ -20,12 +20,11 @@ public class RedisUtil {
         final Properties properties = new Properties();
 
         try {
-            final String filename = "src/main/java/redis.properties";
-            final File initialFile = new File(filename);
-            input = new FileInputStream(initialFile);
+            final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            input = classLoader.getResourceAsStream("redis.properties");
             properties.load(input);
-	    url = "localhost";
-            //url = properties.getProperty("url");
+//            url = "localhost";
+            url = properties.getProperty("url");
 
         } catch (final Exception e) {
             System.out.println("Unable to find `.properties` file for database!");
