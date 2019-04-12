@@ -59,7 +59,8 @@ public class AdminController {
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String drugs ( final Model model ) {
         Jedis jedis = jedisPool.getResource();
-        boolean featureFlag = Boolean.valueOf(jedis.get("admin/drugs"));
+        boolean featureFlag = false;
+	featureFlag = Boolean.valueOf(jedis.get("admin/drugs"));
 
         if (featureFlag){
             return edu.ncsu.csc.itrust2.models.enums.Role.ROLE_ADMIN.getLanding();

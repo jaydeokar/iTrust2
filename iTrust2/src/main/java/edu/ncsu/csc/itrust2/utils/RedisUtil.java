@@ -24,14 +24,15 @@ public class RedisUtil {
             final File initialFile = new File(filename);
             input = new FileInputStream(initialFile);
             properties.load(input);
-            url = properties.getProperty("url");
+	    url = "localhost";
+            //url = properties.getProperty("url");
 
         } catch (final Exception e) {
             System.out.println("Unable to find `.properties` file for database!");
             e.printStackTrace();
             // The file couldn't be loaded
             // Set some default values and maybe we'll get lucky
-            url = "http://localhost:6379";
+            url = "localhost";
         } finally {
             if (null != input) {
                 try {
