@@ -176,6 +176,8 @@ public class APIAppointmentRequestController extends APIController {
             @RequestBody final AppointmentRequestForm requestF ) {
 
         try {
+            //Here a API call to a function to get the status of the api point.
+            // if false then no TODO
             final AppointmentRequest request = new AppointmentRequest( requestF );
             request.setId( id );
 

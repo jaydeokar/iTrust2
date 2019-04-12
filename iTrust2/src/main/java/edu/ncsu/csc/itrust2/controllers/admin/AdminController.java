@@ -1,9 +1,12 @@
 package edu.ncsu.csc.itrust2.controllers.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 /**
  * Controller to manage basic abilities for Admin roles
@@ -22,6 +25,10 @@ public class AdminController {
      *            model to check
      * @return role
      */
+
+    @Autowired
+    public JedisPool jedisPool;
+
     @RequestMapping ( value = "admin/index" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String index ( final Model model ) {
@@ -51,7 +58,16 @@ public class AdminController {
     @RequestMapping ( value = "admin/drugs" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String drugs ( final Model model ) {
-        return "admin/drugs";
+        Jedis jedis = jedisPool.getResource();
+        boolean featureFlag = Boolean.valueOf(jedis.get("admin/drugs"));
+
+        if (featureFlag){
+            return edu.ncsu.csc.itrust2.models.enums.Role.ROLE_ADMIN.getLanding();
+        }
+        else{
+            return "admin/drugs";
+        }
+
     }
 
     /**

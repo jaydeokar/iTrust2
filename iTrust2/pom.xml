@@ -382,6 +382,12 @@
 			<version>1.5.5</version>
 		</dependency>
 
+        <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.9.3</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>
@@ -467,7 +473,7 @@
                     </goals>
                     <configuration>
                      <findbugsXmlOutput>true</findbugsXmlOutput>
-          <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+          <!--<findbugsXmlWithMessages>true</findbugsXmlWithMessages>-->
           <xmlOutput>true</xmlOutput> 
 
 
